@@ -1,15 +1,10 @@
-from fastapi import FastAPI, HTTPException, Query
 import requests
 
+from fastapi import FastAPI, HTTPException, Query
+
+from core.config import settings
+
 app = FastAPI()
-
-API_KEY = 'bff928288dc7fd8412f9a919'
-EXCHANGE_RATE_URL = f'https://v6.exchangerate-api.com/v6/{API_KEY}/latest/'
-
-
-@app.get('/')
-def main_func():
-    return {'some': 1}
 
 
 @app.get('/api/rates')
@@ -19,7 +14,7 @@ def get_exchange_rate(
         value: float = Query(1.0, description="The amount of currency to convert")
 ):
     try:
-        response = requests.get(f"{EXCHANGE_RATE_URL}{from_currency}")
+        response = requests.get(f'{settings.exchange_rate_url}/{from_currency}')
         data = response.json()
 
         if data['result'] != 'success':
@@ -31,5 +26,6 @@ def get_exchange_rate(
 
         converted_amount = exchange_rate * value
         return {"result": round(converted_amount, 2)}
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
