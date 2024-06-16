@@ -10,3 +10,10 @@ services:
     ports:
       - "8000:8000"
     restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: ${PROJECT_SLUG}_redis
+    ports:
+      - "6379:6379"
+    restart: always
