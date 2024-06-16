@@ -1,11 +1,15 @@
 from fastapi import FastAPI, HTTPException, Query
-from loguru import logger
 import requests
 
 app = FastAPI()
 
 API_KEY = 'bff928288dc7fd8412f9a919'
 EXCHANGE_RATE_URL = f'https://v6.exchangerate-api.com/v6/{API_KEY}/latest/'
+
+
+@app.get('/')
+def main_func():
+    return {'some': 1}
 
 
 @app.get('/api/rates')
