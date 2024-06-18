@@ -10,6 +10,8 @@ services:
     ports:
       - "8000:8000"
     restart: always
+    volumes:
+      - pip_cache:/root/.cache/pip
 
   redis:
     image: redis:alpine
@@ -17,3 +19,6 @@ services:
     ports:
       - "6379:6379"
     restart: always
+
+volumes:
+  pip_cache:

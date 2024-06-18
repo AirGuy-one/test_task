@@ -4,3 +4,4 @@ requests==2.32.3
 loguru==0.7.2
 pydantic-settings==2.3.3
 aioredis==2.0.1
+dependency-injector==4.41.0
